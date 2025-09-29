@@ -30,7 +30,7 @@ export const fetchHistory = (sessionId) =>
 // ---------------------------
 export async function* sendMessageStream(sessionId, message) {
   const response = await fetch(
-    `${`https://mern-ai-chat.onrender.com`}/api/chat/chat-stream`,
+    `https://mern-ai-chat.onrender.com/api/chat/chat-stream`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
