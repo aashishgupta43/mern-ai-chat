@@ -29,20 +29,14 @@ export const fetchHistory = (sessionId) =>
 // Streaming API for live AI responses
 // ---------------------------
 export async function* sendMessageStream(sessionId, message) {
-
-  const API_URL = "https://mern-ai-chat.onrender.com";
-
-  const response = await fetch(`${API_URL}/api/chat/chat-stream`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: "Hello" }),
-  });
-
-
-
-
-
-
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/chat/chat-stream`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, message }),
+    }
+  );
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder('utf-8');
