@@ -5,7 +5,7 @@ import axios from 'axios';
 // Axios instance
 // ---------------------------
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  baseURL: process.env.REACT_APP_API_URL || 'https://mern-ai-chat.onrender.com',
   timeout: 30000,
 });
 
@@ -23,7 +23,7 @@ export const fetchHistory = (sessionId) =>
 // ---------------------------
 export async function* sendMessageStream(sessionId, message) {
   const response = await fetch(
-    `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/chat/chat-stream`,
+    `${process.env.REACT_APP_API_URL || 'https://mern-ai-chat.onrender.com'}/api/chat/chat-stream`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
