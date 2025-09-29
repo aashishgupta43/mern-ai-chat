@@ -4,10 +4,17 @@ import axios from 'axios';
 // ---------------------------
 // Axios instance
 // ---------------------------
+
+
+
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
-  timeout: 30000,
+  baseURL: process.env.REACT_APP_API_URL, // full production URL,
+   timeout: 30000,
 });
+
+
+
+
 
 // ---------------------------
 // Normal REST API calls
