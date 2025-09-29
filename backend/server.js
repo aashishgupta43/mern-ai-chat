@@ -13,7 +13,9 @@ const app = express();
 //app.use(cors());
 
 app.use(cors({
-  origin: "https://mern-ai-chat.vercel.app",
+
+   origin: ["http://localhost:5001", "https:/mern-ai-chat.vercel.app"],
+
   methods: ["GET", "POST"], // allowed HTTP methods
   credentials: true          // allow cookies if needed
 }));
