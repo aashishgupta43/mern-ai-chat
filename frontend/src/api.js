@@ -5,7 +5,7 @@ import axios from 'axios';
 // Axios instance
 // ---------------------------
 
-
+console.log(process.env.REACT_APP_API_URL,"foififhfhhf");
 
 const API = axios.create({
   baseURL: process.env.REACT_APP_API_URL, // full production URL,
