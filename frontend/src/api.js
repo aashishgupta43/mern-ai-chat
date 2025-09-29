@@ -1,26 +1,19 @@
 // api.js
-import axios from 'axios';
+import axios from "axios";
 
-// ---------------------------
-// Axios instance
-// ---------------------------
-
-console.log(process.env.REACT_APP_API_URL,"foififhfhhf");
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+console.log("API URL ->", API_URL);
 
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL, // full production URL,
-   timeout: 30000,
+  baseURL: API_URL,
+  timeout: 30000,
 });
-
-
-
-
 
 // ---------------------------
 // Normal REST API calls
 // ---------------------------
 export const sendMessage = (sessionId, prompt) =>
-  API.post('/api/chat', { sessionId, prompt });
+  API.post("/api/chat", { sessionId, prompt });
 
 export const fetchHistory = (sessionId) =>
   API.get(`/api/chat/${sessionId}`);
@@ -29,17 +22,18 @@ export const fetchHistory = (sessionId) =>
 // Streaming API for live AI responses
 // ---------------------------
 export async function* sendMessageStream(sessionId, message) {
-  const response = await fetch(
-    `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/chat/chat-stream`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId, message }),
-    }
-  );
+  const response = await fetch(`${API_URL}/api/chat/chat-stream`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sessionId, message }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
 
   const reader = response.body.getReader();
-  const decoder = new TextDecoder('utf-8');
+  const decoder = new TextDecoder("utf-8");
   let done = false;
 
   while (!done) {
@@ -47,14 +41,11 @@ export async function* sendMessageStream(sessionId, message) {
     done = readerDone;
     if (value) {
       const chunk = decoder.decode(value, { stream: true });
-      yield chunk; // frontend me line-by-line handle karne ke liye
+      yield chunk;
     }
   }
 }
 
-// ---------------------------
-// Default export for Axios
-// ---------------------------
 export default API;
 
 
