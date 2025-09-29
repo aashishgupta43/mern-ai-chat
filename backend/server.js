@@ -19,7 +19,9 @@ app.use(cors({
   credentials: true          // allow cookies if needed
 }));
 
-app.use(express.json());
+
+app.use(express.json());  
+app.use(express.urlencoded({ extended: true }));
 
 
 const PORT = process.env.PORT || 5000;
